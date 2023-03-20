@@ -1,7 +1,0 @@
-"scripts": {
-  ...
-  "gcp-build": "npm run build",
-  "deploy": "gcloud app deploy"
-}
-``
-
