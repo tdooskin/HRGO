@@ -1,11 +1,11 @@
 // src/LoginPage.js
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
 import { auth, googleAuthProvider } from "./firebase";
 
 function LoginPage() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const signInWithGoogle = async () => {
     try {
@@ -18,7 +18,7 @@ function LoginPage() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        history.push("/landing");
+        navigate.push("/landing");
       }
     });
 

@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import LandingPage from "./LandingPage";
 import { auth } from "./firebase";
@@ -22,10 +23,11 @@ function App() {
 
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={LoginPage} />
-        {user && <Route path="/landing" render={() => <LandingPage user={user} />} />}
-      </Switch>
+      <Routes>
+  <Route path="/" element={<LandingPage />} />
+  <Route path="/login" element={<LoginPage />} />
+</Routes>
+
     </Router>
   );
 }
