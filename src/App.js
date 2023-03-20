@@ -1,31 +1,30 @@
 // src/App.js
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Container, Button } from "react-bootstrap";
-import { auth, googleAuthProvider } from "./firebase";
+import LoginPage from "./LoginPage";
+import LandingPage from "./LandingPage";
+import { auth } from "./firebase";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-function LoginPage() {
-  const signInWithGoogle = async () => {
-    try {
-      await auth.signInWithPopup(googleAuthProvider);
-    } catch (error) {
-      console.error("Error signing in:", error);
-    }
-  };
-
-  return (
-    <Container className="mt-5">
-      <h1>Welcome to HRgo</h1>
-      <Button onClick={signInWithGoogle}>Sign In with Google</Button>
-    </Container>
-  );
-}
-
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <Router>
       <Switch>
-        <Route path="/" component={LoginPage} />
+        <Route exact path="/" component={LoginPage} />
+        {user && <Route path="/landing" render={() => <LandingPage user={user} />} />}
       </Switch>
     </Router>
   );
