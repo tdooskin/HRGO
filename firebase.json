@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "https://github.com/tdooskin/HRGO.git",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
